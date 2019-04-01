@@ -1,0 +1,7 @@
+for(let count = 1; count <= 7; count++){
+    let string = ''
+    for(let i = 1; i <= count; i++){
+        string += '#';
+    }
+    console.log(string);
+}
