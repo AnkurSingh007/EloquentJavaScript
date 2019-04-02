@@ -1,0 +1,18 @@
+function recursion(num){
+  if(num === 0){
+    return true;
+  }
+  else if(num == 1){
+    return false;
+  }
+  else if(num < 0){
+    return false;
+  }
+  else{
+    return recursion(num - 2);
+  }
+}
+
+console.log(recursion(12));
+console.log(recursion(11));
+console.log(recursion(-1));
