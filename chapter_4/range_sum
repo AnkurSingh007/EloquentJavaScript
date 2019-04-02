@@ -1,7 +1,14 @@
-function range(start, end){
-  list  = []
-  for(let i = start; i <= end; i++){
-    list.push(i);
+function range(start, end, step = 1){
+  list  = [];
+  if(start  < end){
+      for(let i = start; i <= end; i += step){
+        list.push(i);
+      }
+  }
+  else{
+      for(let i = start; i >= end; i += step){
+      list.push(i);
+    }
   }
   return list;
 }
@@ -14,5 +21,6 @@ function sum(list){
   return sum;
 }
 
-console.log(range(1, 100));
-console.log(sum(range(1, 50)));
+console.log(range(1, 100, 2));
+console.log(sum(range(1, 50, 2)));
+console.log(range(50, 1, -2));
