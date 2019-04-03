@@ -1,0 +1,13 @@
+function arrayToList(array){
+  let head = {};
+  let next = head;
+  for(let ele of array){
+    next['value'] = ele;
+    next['rest'] = {};
+    next = next['rest'];
+  }
+  next['rest'] = null;
+  return head;
+}
+
+console.log(arrayToList([1, 2, 3]));
