@@ -1,0 +1,23 @@
+function arrayToList(array){
+  let head = {};
+  let next = head;
+  for(let ele of array){
+    next['value'] = ele;
+    next['rest'] = {};
+    next = next['rest'];
+  }
+  next['rest'] = null;
+  return head;
+}
+
+function listToArray(list){
+  let arr = [];
+  while(list !== null){
+    arr.push(list['value']);
+    list = list['rest'];
+  }
+  return arr;
+}
+
+console.log(arrayToList([1, 2, 3]));
+console.log(listToArray({'value': 1, rest: {value: -2, rest: null}}));
