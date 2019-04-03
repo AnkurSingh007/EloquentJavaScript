@@ -1,0 +1,92 @@
+function arrayToList(array){
+  let head = {};
+  let next = head;
+  for(let ele of array){
+    next['value'] = ele;
+    next['rest'] = {};
+    next = next['rest'];
+  }
+  next['rest'] = null;
+  return head;
+}
+
+function listToArray(list){
+  let arr = [];
+  while(list !== null){
+    arr.push(list['value']);
+    list = list['rest'];
+  }
+  return arr;
+}
+
+function prepend(ele, list){
+  let head = {value: ele, rest: list};
+  return head;
+}
+
+function nth(list, n){
+  for(let i = 0; i < n && list !== null; i++){
+    list = list['rest'];
+  }
+  if(list !== null)
+    return list['value'];
+  else
+    return undefined;
+}
+
+function nth_recursive(list, n){
+  if(list === null)
+    return undefined;
+  else if(n == 0)
+    return list['value'];
+  else
+    return nth_recursive(list['rest'], n - 1);
+}
+
+
+function deepEqual(obj1, obj2){
+  if(obj1 === null && obj2 === null)
+    return true;
+  if((obj1 === null && obj2 !== null) && (obj2 !== null && obj2 === null))
+    return false;
+  if(typeof obj1 === 'object' && typeof obj2 === 'object'){
+    let obj1_keys =  Object.keys(obj1);
+    for(let key of obj1_keys){
+      if(key in obj2){
+        if(!deepEqual(obj1[key], obj2[key])){
+          return false;
+        }
+      }
+      else{
+        return false;
+      }
+    }
+    return true;
+   }
+  else if(typeof obj1 === 'object' || typeof obj2 === 'object'){
+    return false;
+  }
+  else if(obj1 === obj2){
+    return true;
+  }
+  console.log('here');
+  return false;
+}
+
+
+let obj = {here: {is: "an"}, object: 2};
+console.log(deepEqual(obj, obj));
+console.log(deepEqual(obj, {here: 1, object: 2}));
+console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
+
+
+
+
+console.log(arrayToList([1, 2, 3]));
+console.log(listToArray({'value': 1, rest: {value: -2, rest: null}}));
+let list = {value: 1, rest: {value: -1, rest: null}};
+console.log(prepend(-4, list));
+console.log(nth(list, 1));
+// -1
+console.log(nth_recursive(list, 1));
+// -1
