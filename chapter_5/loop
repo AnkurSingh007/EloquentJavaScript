@@ -1,0 +1,13 @@
+function loop(value, test_function, body_function, update_function){
+  while(value){
+    if(test_function(value)){
+      update_function(value);
+      value = body_function(value);
+    }
+    else{
+      return;
+    }
+  }
+}
+
+loop(3, n => n > 0, n => n - 1, console.log);
