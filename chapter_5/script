@@ -1,0 +1,55 @@
+
+function dominantDirection(text) {
+  let codepoints = find_code_points(text);
+  let group = group_by(codepoints);
+  let dominent_length = 0;
+  let dominent = 'lrt';
+  console.log(group);
+	for(let key in group){
+      if(group[key]['count'] > dominent_length){
+        	dominent_length = group[key]['count'];
+        	dominent = group[key]['direction'];
+    	}
+    }
+  return dominent;
+}
+
+function find_code_points(text){
+  let codepoints = [];
+  // Assuming UTF-8 character set
+  for(let i = 0; i < text.length; i++){
+    codepoints.push(text.codePointAt(i));
+  }
+  return codepoints;
+}
+
+// Expects array of codepoints
+// Return map with scriptname and codepoint
+function group_by(array){
+  group = {};
+  for(let codepoint of array){
+    for(let script of SCRIPTS){
+      if(script.ranges.some(([from, to]) => codepoint >= from && codepoint <= to)){
+          if(script['name'] in group){
+          	group[script['name']]['count'] += 1;
+          }
+        	else{
+              	group[script['name']] = {};
+            	group[script['name']]['count'] = 1;
+                group[script['name']]['direction'] = script['direction'];
+            }
+      }
+    }
+  }
+  return group;
+}
+
+
+function check_code_point_in(codepoint , script){
+  return script.ranges.some(([from, to]) => codepoint >= from && codepoint <= to);
+}
+  
+console.log(dominantDirection("Hello!"));
+// → ltr
+console.log(dominantDirection("Hey, مساء الخير"));
+// → rtl
